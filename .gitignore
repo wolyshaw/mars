@@ -1,1 +1,5 @@
 node_modules
+config.js
+.tern-project
+npm-debug.log
+dev
