@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { closePopup, openPopup } from 'actions/popups'
 import Login from 'components/popups/Login'
 
+import styles from 'static/popups/popup.less'
+
 const mapStateToProps = state => ({
 	Popups: state.Popups
 })
@@ -23,14 +25,13 @@ const active = p => {
 			return <Login data={ pop.data } close={ () => setClose(p.dispatch) } dispatch={ p.dispatch }/>
 			break
 		default:
-			return 'init'
+			return ''
 	}
 }
 
 const Popup = props => {
 	return (
 		<span>
-			<span onClick={ () => props.dispatch(openPopup({ name: 'login', data: {}})) }>openLogin</span>
 			{ active(props) }
 		</span>
 	)

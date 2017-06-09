@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { render } from 'react-dom'
 
 import { Form, Icon, Input, Button, Checkbox } from 'antd'
+import styles from 'static/popups/popup.less'
 const FormItem = Form.Item
 
 function hasErrors(fieldsError) {
@@ -31,7 +32,7 @@ class LoginForm extends Component {
 					{getFieldDecorator('userName', {
 						rules: [{ required: true, message: 'Please input your username!' }],
 					})(
-						<Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
+						<Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />
 					)}
 				</FormItem>
 				<FormItem
@@ -41,7 +42,7 @@ class LoginForm extends Component {
 					{getFieldDecorator('password', {
 						rules: [{ required: true, message: 'Please input your Password!' }],
 					})(
-						<Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
+						<Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="密码" />
 					)}
 				</FormItem>
 				<FormItem>
@@ -68,7 +69,7 @@ class Login extends Component {
 	render() {
 		let { close, dispatch } = this.props
 		return (
-			<div className="login">
+			<div className={ styles.popup + ' login' }>
 				<LoginFormRender/>
 				<span onClick={ close }>关闭弹窗</span>
 			</div>
