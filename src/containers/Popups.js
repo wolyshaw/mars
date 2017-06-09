@@ -20,7 +20,7 @@ const active = p => {
 		name = ('' + pop.name).toLocaleUpperCase()
 	switch (name) {
 		case 'LOGIN':
-			return <Login data={ pop.data } close={ () => setClose(p.dispatch) }/>
+			return <Login data={ pop.data } close={ () => setClose(p.dispatch) } dispatch={ p.dispatch }/>
 			break
 		default:
 			return 'init'
