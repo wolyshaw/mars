@@ -1,26 +1,33 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
+import {createStore, applyMiddleware} from 'redux'
+import {Provider} from 'react-redux'
+import thunk from 'redux-thunk'
 
-import { Button, notification } from 'antd'
+import store from './reducers'
+
+import Popups from 'containers/Popups'
 
 import 'antd/dist/antd.less'
 
-const openNotification = () => {
-	notification.open({
-		message: 'Notification Title',
-		description: 'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-	});
-};
+const middleware = [thunk]
+
+const appStore = createStore(
+	store,
+	applyMiddleware(...middleware)
+)
 
 const App = props => {
 	return (
 		<div>
-			<Button type="primary" onClick={openNotification}>Open the notification box</Button>
+			<Popups/>
 		</div>
 	)
 }
 
 render(
-	<App/>,
+	<Provider store={appStore}>
+		<App/>
+	</Provider>,
 	document.getElementById('app')
 )
