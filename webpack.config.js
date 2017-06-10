@@ -16,10 +16,10 @@ module.exports = {
     bundle: './src/index.js'
   },
   output: {
-    filename: '[hash:5].[name].js',
+    filename: '[chunkhash:5].[name].js',
     path: path.resolve('./dist'),
-    publicPath: '/dist',
-    chunkFilename: '[hash:5].[name].chunk.js'
+    publicPath: '/dist/',
+    chunkFilename: '[chunkhash:5].[name].[id].chunk.js'
   },
   module: {
     rules: [
@@ -32,10 +32,19 @@ module.exports = {
         }
       },
       {
-        test: /\.css$|\.less$/,
+        test: /\.(css|less)$/,
+        exclude: /node_modules/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader!less-loader?modules&localIdentName=[name]--[local]--[hash:base64:5]']
+          use: ['css-loader?modules&localIdentName=[name]--[local]--[hash:base64:5]', 'less-loader']
+        })
+      },
+      {
+        test: /\.(css|less)$/,
+        include: /node_modules/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader!less-loader'
         })
       },
       {
@@ -69,7 +78,7 @@ module.exports = {
       description: config.site.description
     }),
     new ExtractTextPlugin({
-      filename: 'static/[hash:5].[name].css',
+      filename: 'static/[chunkhash:5].[name].css',
       allChunks: true
     }),
     new webpack.optimize.UglifyJsPlugin({
