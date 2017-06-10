@@ -13,13 +13,13 @@ import 'antd/dist/antd.less'
 const middleware = [thunk]
 
 const appStore = createStore(
-	store,
-	applyMiddleware(...middleware)
+  store,
+  applyMiddleware(...middleware)
 )
 
 render(
-	<Provider store={appStore}>
-		<Main/>
-	</Provider>,
-	document.getElementById('app')
+  <Provider store={appStore}>
+    <Main/>
+  </Provider>,
+  document.getElementById('app')
 )
