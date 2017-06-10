@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Layout, Menu, Breadcrumb, Icon } from 'antd'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import createBrowserHistory from 'history/createBrowserHistory'
+
 import { closePopup, openPopup } from 'actions/popups'
 import Popups from 'containers/Popups'
-import User from 'components/pages/User'
-import Home from 'components/pages/Home'
 import LeftMenu from 'components/common/LeftMenu'
-import { Layout, Menu, Breadcrumb, Icon } from 'antd'
-import createBrowserHistory from 'history/createBrowserHistory'
+import Foot from 'components/common/Foot'
+import Head from 'components/common/Head'
+import RouteLine from 'components/common/RouteLine'
+import AppRoute from 'components/common/AppRoute'
 
 import styles from 'static/app.less'
 
 const history = createBrowserHistory()
 
-const { Header, Content, Footer, Sider } = Layout
+const { Content, Sider } = Layout
 const SubMenu = Menu.SubMenu
 const mapStateToProps = state => {
   return {
@@ -57,22 +60,14 @@ class Main extends Component {
             <LeftMenu mode={ this.state.mode }/>
           </Sider>
           <Layout>
-            <Header style={{ background: '#fff', padding: 0 }} />
+            <Head/>
             <Content style={{ margin: '0 16px' }}>
               <div>
-                <Breadcrumb style={{ margin: '12px 0' }}>
-                  <Breadcrumb.Item>User</Breadcrumb.Item>
-                  <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                </Breadcrumb>
-                <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                  <Route path={ '/' } exact component={ Home }/>
-                  <Route path={ '/user' } component={ User }/>
-                </div>
+                <RouteLine/>
+                <AppRoute/>
               </div>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>
-              Ant Design ©2016 Created by Ant UED
-            </Footer>
+            <Foot/>
           </Layout>
           <Popups/>
         </Layout>
