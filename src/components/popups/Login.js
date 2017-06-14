@@ -1,27 +1,44 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-
 import { Form, Icon, Input, Button, Checkbox } from 'antd'
+import { fetchData, getUserData } from 'util/util'
+
+import { setToken } from 'actions/user/token'
+
 import styles from 'static/popups/popup.less'
 const FormItem = Form.Item
 
 function hasErrors(fieldsError) {
-	return Object.keys(fieldsError).some(field => fieldsError[field]);
+	return Object.keys(fieldsError).some(field => fieldsError[field])
 }
 
 class LoginForm extends Component {
 	constructor(props) {
 		super(props)
+		this.toLogin = this._toLogin.bind(this)
 	}
 
-	toLogin(e, getFieldsValue) {
+	_toLogin(e, getFieldsValue) {
 		e.preventDefault()
-		console.log(getFieldsValue())
+		fetchData({
+			url: '/manage/user/login',
+			body: getFieldsValue(),
+			success: r => {
+				this.props.dispatch(setToken(r.data.token))
+				getUserData()
+			}
+		})
 	}
 
 	render() {
-		const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, getFieldsValue } = this.props.form
-		const userNameError = getFieldError('userName')
+		const {
+			getFieldDecorator,
+			getFieldsError,
+			getFieldError,
+			isFieldTouched,
+			getFieldsValue
+		} = this.props.form
+		const userNameError = getFieldError('username')
 		const passwordError = getFieldError('password')
 		return (
 			<Form className="login-form" onSubmit={ e => this.toLogin(e, getFieldsValue) }>
@@ -29,7 +46,7 @@ class LoginForm extends Component {
 					validateStatus={userNameError ? 'error' : ''}
 					help={userNameError || ''}
 				>
-					{getFieldDecorator('userName', {
+					{getFieldDecorator('username', {
 						rules: [{ required: true, message: 'Please input your username!' }],
 					})(
 						<Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />
@@ -51,7 +68,7 @@ class LoginForm extends Component {
 						htmlType="submit"
 						disabled={hasErrors(getFieldsError())}
 					>
-						Log in
+						登录
 					</Button>
 				</FormItem>
 			</Form>
@@ -67,10 +84,10 @@ class Login extends Component {
 	}
 
 	render() {
-		let { close, dispatch } = this.props
+		let { close, dispatch, data } = this.props
 		return (
 			<div className={ styles.popup + ' login' }>
-				<LoginFormRender/>
+				<LoginFormRender dispatch={ dispatch }/>
 				<span onClick={ close }>关闭弹窗</span>
 			</div>
 		)

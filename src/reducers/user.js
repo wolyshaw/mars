@@ -4,7 +4,7 @@ const User = (state = {}, action) => {
 			return action.data
 			break
 		default:
-			return {}
+			return state
 	}
 }
 

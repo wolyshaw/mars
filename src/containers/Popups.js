@@ -7,37 +7,37 @@ import Login from 'components/popups/Login'
 import styles from 'static/popups/popup.less'
 
 const mapStateToProps = state => ({
-  Popups: state.Popups
+	Popups: state.Popups
 })
 
 const setClose = (dispatch, callback) => {
-  dispatch(closePopup())
-  if (callback && typeof callback === 'function') {
-    callback()
-  }
+	dispatch(closePopup())
+	if (callback && typeof callback === 'function') {
+		callback()
+	}
 }
 
 const active = p => {
-  let pop = p.Popups,
-    name = ('' + pop.name).toLocaleUpperCase()
-  switch (name) {
-    case 'LOGIN':
-      return <Login data={ pop.data } close={ () => setClose(p.dispatch) } dispatch={ p.dispatch }/>
-      break
-    default:
-      return ''
-  }
+	let pop = p.Popups,
+		name = ('' + pop.name).toLocaleUpperCase()
+	switch (name) {
+		case 'LOGIN':
+			return <Login data={ pop.data } close={ () => setClose(p.dispatch) } dispatch={ p.dispatch }/>
+			break
+		default:
+			return ''
+	}
 }
 
 const Popup = props => {
-  let Active = active(props)
-  return (
-    <span className={ Active ? 'bg' : '' }>
-      { Active }
-    </span>
-  )
+	let Active = active(props)
+	return (
+		<span>
+			{ Active }
+		</span>
+	)
 }
 
 export default connect(
-  mapStateToProps
+	mapStateToProps
 )(Popup)
