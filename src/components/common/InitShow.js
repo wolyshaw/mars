@@ -8,7 +8,6 @@ import {
 	LeftMenu,
 	Foot,
 	Head,
-	RouteLine,
 	AppRoute
 } from 'components/common'
 
@@ -28,12 +27,9 @@ const InitShow = props => {
 				<LeftMenu mode={ props.mode }/>
 			</Sider>
 			<Layout>
-				<Head/>
-				<Content style={{ margin: '0 16px' }}>
-					<div>
-						<RouteLine/>
-						<AppRoute/>
-					</div>
+				<Head user = { props.main.user }/>
+				<Content style={{ margin: '0 16px', marginTop: 16 }}>
+					<AppRoute/>
 				</Content>
 				<Foot/>
 			</Layout>

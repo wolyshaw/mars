@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router } from 'react-router-dom'
-import createBrowserHistory from 'history/createBrowserHistory'
+import { BrowserRouter } from 'react-router-dom'
 import { getUserData } from 'util/util'
 import InitShow from 'components/common/InitShow'
 
 import styles from 'static/app.less'
-
-const history = createBrowserHistory()
 
 const mapStateToProps = state => {
 	return {
@@ -40,14 +37,14 @@ class Main extends Component {
 
 	render() {
 		return (
-			<Router history={ history }>
+			<BrowserRouter>
 				<InitShow
 					onCollapse={ this.onCollapse.bind(this) }
 					collapsed={ this.state.collapsed }
 					mode={ this.state.mode }
 					main={ this.props }
 				/>
-			</Router>
+			</BrowserRouter>
 		)
 	}
 }

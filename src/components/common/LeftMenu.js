@@ -5,36 +5,62 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd'
 const { Header, Content, Footer, Sider } = Layout
 const SubMenu = Menu.SubMenu
 
+const MenuList = [
+	{
+		path: '/',
+		text: '控制面板',
+		icon: 'user'
+	},
+	{
+		path: '/user',
+		text: '用户管理',
+		icon: 'user',
+		childrens: [
+			{
+				path: '/user/list',
+				text: '用户列表'
+			}
+		]
+	}
+]
+
+const getActiveLink = () => {
+	let open = '/', selected = location.pathname, path = selected.split('/')
+	if (path.length > 2) {
+		path.pop()
+		open = path.join('/')
+	}
+	return { open, selected }
+}
+
 const LeftMenu = props => {
-  return (
-    <div>
-      <div className="logo" />
-      <Menu theme="dark" mode={props.mode} defaultSelectedKeys={['7']}>
-        <SubMenu
-          key="sub1"
-          title={<span><Icon type="user" /><span className="nav-text">User</span></span>}
-        >
-          <Menu.Item key="7"><Link to={ '/' }>控制面板</Link></Menu.Item>
-          <Menu.Item key="1"><Link to={ '/user' }>用户列表</Link></Menu.Item>
-          <Menu.Item key="2">Bill</Menu.Item>
-          <Menu.Item key="3">Alex</Menu.Item>
-        </SubMenu>
-        <SubMenu
-          key="sub2"
-          title={<span><Icon type="team" /><span className="nav-text">Team</span></span>}
-        >
-          <Menu.Item key="4">Team 1</Menu.Item>
-          <Menu.Item key="5">Team 2</Menu.Item>
-        </SubMenu>
-        <Menu.Item key="6">
-          <span>
-            <Icon type="file" />
-            <span className="nav-text">File</span>
-          </span>
-        </Menu.Item>
-      </Menu>
-    </div>
-  )
+	let path = getActiveLink(),
+		setItem = list => {
+			return list.map(item => {
+				if (item.childrens) {
+					return (
+						<SubMenu
+							key={ item.path }
+							title={<span><Icon type={ item.icon } /><span className="nav-text">{ item.text }</span></span>}
+						>
+							{
+								setItem(item.childrens)
+							}
+						</SubMenu>
+					)
+				} else {
+					return <Menu.Item key={ item.path }>{ item.icon ? <Icon type={ item.icon } /> : '' }{ item.text }</Menu.Item>
+				}
+			})
+		}
+	return (
+		<div>
+			<div className="logo" />
+			<Menu theme="dark" mode={props.mode} defaultOpenKeys={[path.open]} defaultSelectedKeys={[path.selected]}>
+				{ setItem(MenuList) }
+			</Menu>
+		</div>
+	)
 }
 
 export default LeftMenu
