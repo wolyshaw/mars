@@ -41,7 +41,7 @@ class LoginForm extends Component {
 		const userNameError = getFieldError('username')
 		const passwordError = getFieldError('password')
 		return (
-			<Form className="login-form" onSubmit={ e => this.toLogin(e, getFieldsValue) }>
+			<Form className={ styles.loginInfo } onSubmit={ e => this.toLogin(e, getFieldsValue) }>
 				<FormItem
 					validateStatus={userNameError ? 'error' : ''}
 					help={userNameError || ''}
@@ -67,6 +67,7 @@ class LoginForm extends Component {
 						type="primary"
 						htmlType="submit"
 						disabled={hasErrors(getFieldsError())}
+						className={ styles.loginBtn }
 					>
 						登录
 					</Button>
@@ -86,9 +87,8 @@ class Login extends Component {
 	render() {
 		let { close, dispatch, data } = this.props
 		return (
-			<div className={ styles.popup + ' login' }>
+			<div className={ [styles.popup, styles.login].join(' ') }>
 				<LoginFormRender dispatch={ dispatch }/>
-				<span onClick={ close }>关闭弹窗</span>
 			</div>
 		)
 	}

@@ -9,7 +9,8 @@ const MenuList = [
 	{
 		path: '/',
 		text: '控制面板',
-		icon: 'user'
+		icon: 'user',
+		disabled: true
 	},
 	{
 		path: '/user',
@@ -19,6 +20,17 @@ const MenuList = [
 			{
 				path: '/user/list',
 				text: '用户列表'
+			}
+		]
+	},
+	{
+		path: '/article',
+		text: '文章管理',
+		icon: 'user',
+		childrens: [
+			{
+				path: '/article/list',
+				text: '文章列表'
 			}
 		]
 	}
@@ -33,26 +45,38 @@ const getActiveLink = () => {
 	return { open, selected }
 }
 
-const LeftMenu = props => {
-	let path = getActiveLink(),
-		setItem = list => {
-			return list.map(item => {
-				if (item.childrens) {
-					return (
-						<SubMenu
-							key={ item.path }
-							title={<span><Icon type={ item.icon } /><span className="nav-text">{ item.text }</span></span>}
-						>
-							{
-								setItem(item.childrens)
-							}
-						</SubMenu>
-					)
-				} else {
-					return <Menu.Item key={ item.path }>{ item.icon ? <Icon type={ item.icon } /> : '' }{ item.text }</Menu.Item>
-				}
-			})
+const setItem = list => {
+	return list.map(item => {
+		if (item.childrens) {
+			return (
+				<SubMenu
+					key={ item.path }
+					disabled={ item.disabled }
+					title={
+						<span>
+							<Icon type={ item.icon }/>
+							<span className="nav-text">{ item.text }</span>
+						</span>
+					}
+				>
+					{
+						setItem(item.childrens)
+					}
+				</SubMenu>
+			)
+		} else {
+			return (
+				<Menu.Item key={ item.path } disabled={ item.disabled }>
+					<Link to={ item.path }>{ item.icon ? <Icon type={ item.icon } /> : '' }{ item.text }</Link>
+				</Menu.Item>
+			)
 		}
+	})
+}
+
+const LeftMenu = props => {
+	let path = getActiveLink()
+
 	return (
 		<div>
 			<div className="logo" />

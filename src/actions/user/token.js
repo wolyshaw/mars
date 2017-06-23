@@ -1,8 +1,11 @@
+import { message } from 'antd'
+
 export const clearToken = callback => {
+	localStorage.removeItem('token')
+	message.success('退出成功', 5)
 	if (callback && typeof callback === 'function') {
 		callback()
 	}
-	localStorage.removeItem('token')
 	return { type: 'clear_token' }
 }
 

@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import { connect } from 'react-redux'
 import { closePopup, openPopup } from 'actions/popups'
 import Login from 'components/popups/Login'
+import UserInfo from 'components/popups/UserInfo'
 
 import styles from 'static/popups/popup.less'
 
@@ -24,12 +25,15 @@ const active = p => {
 		case 'LOGIN':
 			return <Login data={ pop.data } close={ () => setClose(p.dispatch) } dispatch={ p.dispatch }/>
 			break
+		case 'USERINFO':
+			return <UserInfo data={ pop.data }/>
+			break
 		default:
 			return ''
 	}
 }
 
-const Popup = props => {
+const Popups = props => {
 	let Active = active(props)
 	return (
 		<span>
@@ -40,4 +44,4 @@ const Popup = props => {
 
 export default connect(
 	mapStateToProps
-)(Popup)
+)(Popups)

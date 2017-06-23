@@ -4,7 +4,7 @@ import appStore from 'util/store'
 import { setUser, clearUser } from 'actions/user'
 import { openPopup } from 'actions/popups'
 
-const {
+export const {
 	dispatch,
 	getState
 } = appStore
@@ -23,22 +23,31 @@ export const fetchData = set => {
 		},
 		body: JSON.stringify(body)
 	})
-		.then(res => res.json())
+		.then(res => {
+			if (res.status === 200) {
+				return res.json()
+			}
+			if (res.status === 500) {
+				message.error('服务器或网络错误', 5)
+			}
+		})
 		.then(r => {
-			if (r.code === '200') {
-				if (Hint) {
-					message.success(r.msg, 5)
-				}
-				if (set.success && typeof set.success === 'function') {
-					set.success(r)
-				}
-			} else {
-				if (Hint) {
-					message.error(r.msg, 5)
-				}
-				if (r.code === '100') {
-					dispatch(clearUser())
-					dispatch(openPopup({ name: 'login' }))
+			if (r) {
+				if (r.code === '200') {
+					if (Hint) {
+						message.success(r.msg, 5)
+					}
+					if (set.success && typeof set.success === 'function') {
+						set.success(r)
+					}
+				} else {
+					if (Hint) {
+						message.error(r.msg, 5)
+					}
+					if (r.code === '100') {
+						dispatch(clearUser())
+						dispatch(openPopup({ name: 'login' }))
+					}
 				}
 			}
 		})
