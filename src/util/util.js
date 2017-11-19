@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch'
 import { message, Button } from 'antd'
 import appStore from 'util/store'
 import { setUser, clearUser } from 'actions/user'

@@ -1,14 +1,15 @@
-import React, { Component } from 'react'
-import { render } from 'react-dom'
+import React, { PureComponent } from 'react'
+import ReactDOM, { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import Main from 'containers/Main'
+import Application from './components'
 import appStore from 'util/store'
 
 import 'antd/dist/antd.less'
+import 'static/app.less'
 
 render(
-	<Provider store={appStore}>
-		<Main/>
+	<Provider store={ appStore }>
+		<Application/>
 	</Provider>,
 	document.getElementById('app')
 )

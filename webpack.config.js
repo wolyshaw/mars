@@ -12,7 +12,7 @@ const setResolve = dirname => path.resolve(path.join(__dirname, 'src', dirname))
 
 module.exports = {
   entry: {
-    vendor: ['react', 'react-router-dom', 'react-dom', 'redux', 'react-redux', 'redux-thunk', 'isomorphic-fetch'],
+    vendor: ['react', 'react-router-dom', 'react-dom', 'redux', 'react-redux', 'redux-thunk', 'antd'],
     bundle: './src/index.js'
   },
   output: {
@@ -28,7 +28,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets:  ['react', 'es2015']
+          presets:  ['react', 'env']
         }
       },
       {
@@ -78,8 +78,7 @@ module.exports = {
       description: config.site.description
     }),
     new ExtractTextPlugin({
-      filename: 'static/[chunkhash:5].[name].css',
-      allChunks: true
+      filename: 'static/[chunkhash:5].[name].css'
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {

@@ -1,48 +1,31 @@
-const path = require('path')
 const express = require('express')
-
+const path = require('path')
+const compression = require('compression')
 const app = express()
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
+const webpackDevConfig = require('./webpack.config.dev')
+const config = require('./config')
 const isProduction = process.env.NODE_ENV === 'production'
-const serverPort = process.env.NODE_PORT || '8000'
+const compiler = webpack(webpackDevConfig)
+app.use(compression())
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: webpackDevConfig.output.publicPath,
+  noInfo: true,
+  stats: {
+    colors: true
+  }
+}))
 
-if (isProduction) {
-	app.use('/dist', express.static('dist'))
+app.use(webpackHotMiddleware(compiler))
+let buildDir = isProduction ? 'dist' : 'dev'
 
-	app.get('*', (req, res) => {
-		res.sendFile(path.join(__dirname, 'dist', 'index.html'))
-	})
-} else {
-	const webpack = require('webpack')
-	const compression = require('compression')
-	const proxy = require('http-proxy-middleware')
-	const devLoad = require('webpack-dev-middleware')
-	const hotLoad = require('webpack-hot-middleware')
-	const webpackDevConfig = require('./webpack.config.dev')
-	const compiler = webpack(webpackDevConfig)
-
-	app.use(
-		'/manage',
-		proxy({
-			target: 'http://192.168.10.182:8000'
-		})
-	)
-
-	app.use(compression())
-	app.use('/dev', express.static('dev'))
-	app.use(hotLoad(compiler))
-	app.use(devLoad(compiler, {
-		publicPath: '/',
-		noInfo: true,
-		stats: {
-			colors: true
-		}
-	}))
-
-	app.get('*', (req, res) => {
-		res.sendFile(path.join(__dirname, 'dev', 'index.html'))
-	})
-}
-
-app.listen(serverPort, err => {
-	err ? console.log(err) : console.log(`server online ${serverPort}`)
+app.use(express.static(buildDir))
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, buildDir, 'index.html'))
+})
+var PORT = process.env.PORT || config.port
+app.listen(PORT, function() {
+  console.log('Production Express server running at localhost:' + PORT)
 })

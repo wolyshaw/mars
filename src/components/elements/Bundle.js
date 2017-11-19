@@ -1,14 +1,12 @@
-import React, { Component } from 'react'
-import Helmet from 'react-helmet'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-class Bundle extends Component {
+class Bundle extends PureComponent {
 
 	constructor(props) {
-		super(props)
+		super(...props)
 		this.state = {
-			mod: null,
-			title: document.title
+			mod: null
 		}
 	}
 
@@ -36,10 +34,7 @@ class Bundle extends Component {
 	render() {
 		return (
 			<span>
-				<Helmet title={ this.props.title || '' }/>
-				{
-					this.state.mod ? this.props.children(this.state.mod) : null
-				}
+				{ this.state.mod ? this.props.children(this.state.mod) : null }
 			</span>
 		)
 	}
@@ -47,7 +42,6 @@ class Bundle extends Component {
 
 Bundle.PropTypes = {
 	load: PropTypes.func,
-	title: PropTypes.string,
 	children: PropTypes.func
 }
 
