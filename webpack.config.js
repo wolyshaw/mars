@@ -12,7 +12,6 @@ const setResolve = dirname => path.resolve(path.join(__dirname, 'src', dirname))
 
 module.exports = {
   entry: {
-    vendor: ['react', 'react-router-dom', 'react-dom', 'redux', 'react-redux', 'redux-thunk', 'antd'],
     bundle: './src/index.js'
   },
   output: {

@@ -9,16 +9,18 @@ const webpackDevConfig = require('./webpack.config.dev')
 const config = require('./config')
 const isProduction = process.env.NODE_ENV === 'production'
 const compiler = webpack(webpackDevConfig)
-app.use(compression())
-app.use(webpackDevMiddleware(compiler, {
-  publicPath: webpackDevConfig.output.publicPath,
-  noInfo: true,
-  stats: {
-    colors: true
-  }
-}))
+if(!isProduction) {
+  app.use(compression())
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: webpackDevConfig.output.publicPath,
+    noInfo: true,
+    stats: {
+      colors: true
+    }
+  }))
 
-app.use(webpackHotMiddleware(compiler))
+  app.use(webpackHotMiddleware(compiler))
+}
 let buildDir = isProduction ? 'dist' : 'dev'
 
 app.use(express.static(buildDir))
