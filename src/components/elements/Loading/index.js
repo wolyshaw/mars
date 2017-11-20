@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { render } from 'react-dom'
 import styles from  './index.less'
-console.log(styles)
+
 const LoadingContent = props => {
   return (
     <div className={ styles.loadingContainer }>

@@ -1,3 +1,7 @@
+import loading from '../components/elements/Loading'
+
+const Loading = new loading()
+
 export default (url, option = {}) => {
 
     let initBody, ssid = localStorage.getItem('ssid')
@@ -18,12 +22,15 @@ export default (url, option = {}) => {
       body: initBody
     }
 
+    Loading.openLoading()
+
     return fetch(`${urk}?ssid=${ssid}`, Object.assign({}, initOption, option))
       .then(res => {
+        Loading.closeLoading()
         if(res.status === 200) {
           return res.json()
         }
       })
-      .catch(error => console.log(error))
+      .catch(error => Loading.closeLoading())
 
   }
