@@ -9,9 +9,11 @@ export default class Dashboard extends PureComponent {
   }
 
   render() {
-    console.log(Loading)
     return (
-      <div onClick={() => Loading.openLoading()}>Dashboard</div>
+      <div onClick={() => {
+        Loading.openLoading()
+        setTimeout(() => Loading.closeLoading(), 5000)
+      }}>Dashboard</div>
     )
   }
 }

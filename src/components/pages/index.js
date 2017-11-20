@@ -5,6 +5,7 @@ import Bundle from '../elements/Bundle'
 
 const DashboardLazy = require('bundle-loader?lazy&name=Dashboard!./Dashboard')
 const ContentLazy = require('bundle-loader?lazy&name=Content!./Content')
+const UserLazy = require('bundle-loader?lazy&name=User!./User')
 
 const Dashboard = props => (
 	<Bundle load={ DashboardLazy }>
@@ -14,6 +15,12 @@ const Dashboard = props => (
 
 const Content = props => (
 	<Bundle load={ ContentLazy }>
+		{ (Container) => <Container { ...props }/> }
+	</Bundle>
+)
+
+const User = props => (
+	<Bundle load={ UserLazy }>
 		{ (Container) => <Container { ...props }/> }
 	</Bundle>
 )
@@ -32,6 +39,7 @@ export default props => {
     <Switch>
       <Route exact path='/' component={ Dashboard }/>
       <Route exact path='/content' component={ Content }/>
+      <Route exact path='/user' component={ User }/>
       <Route component={ NotFound }/>
     </Switch>
   )

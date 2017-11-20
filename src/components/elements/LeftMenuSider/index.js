@@ -25,8 +25,8 @@ export default props => {
           </Link>
         </Menu.Item>
         <Menu.Item key="3">
-          <Link to="/">
-            <Icon type="upload" />
+          <Link to="/user">
+            <Icon type="user" />
             <span className="nav-text">用户管理</span>
           </Link>
         </Menu.Item>

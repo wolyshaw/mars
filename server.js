@@ -1,15 +1,21 @@
 const express = require('express')
+const jsonServer = require('json-server')
 const path = require('path')
 const compression = require('compression')
 const app = express()
+const middlewares = jsonServer.defaults()
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const webpackDevConfig = require('./webpack.config.dev')
 const config = require('./config')
+const mock = require('./mock')
 const isProduction = process.env.NODE_ENV === 'production'
 const compiler = webpack(webpackDevConfig)
 if(!isProduction) {
+  app.use('/api', jsonServer.bodyParser)
+  app.use('/api', middlewares)
+  app.use('/api', jsonServer.router(mock))
   app.use(compression())
   app.use(webpackDevMiddleware(compiler, {
     publicPath: webpackDevConfig.output.publicPath,
