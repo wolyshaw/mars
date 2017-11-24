@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react'
 import { Row, Col, Table } from 'antd'
+import loading from '../../elements/Loading'
 import { openPopup, closePopup } from '../../popups'
 
 const textOverflow = {maxWidth: '350px', overflow: 'hidden', display: 'inline-block', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}
-
+const Loading = new loading()
 const columns = [{
   title: '图片',
   render: (post) => <img src={ post.image } width='100' height='auto' />,
@@ -46,7 +47,7 @@ export default class Content extends PureComponent {
 
   render() {
     return (
-      <div>
+      <div onClick={() => Loading.openLoading()}>
         <Row>
           <Col span={24}>
             <Table bordered loading={ this.state.loading } dataSource={ this.state.posts } columns={columns} />

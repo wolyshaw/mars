@@ -11,23 +11,29 @@ const webpackDevConfig = require('./webpack.config.dev')
 const config = require('./config')
 const mock = require('./mock')
 const isProduction = process.env.NODE_ENV === 'production'
+
 const compiler = webpack(webpackDevConfig)
+
+let buildDir = isProduction ? 'dist' : 'dev'
+
 if(!isProduction) {
   app.use('/api', jsonServer.bodyParser)
   app.use('/api', middlewares)
   app.use('/api', jsonServer.router(mock))
-  app.use(compression())
-  app.use(webpackDevMiddleware(compiler, {
-    publicPath: webpackDevConfig.output.publicPath,
-    noInfo: true,
-    stats: {
-      colors: true
-    }
-  }))
-
-  app.use(webpackHotMiddleware(compiler))
+  if(process.env.NODE_ENV !== 'mock') {
+    app.use(compression())
+    app.use(webpackDevMiddleware(compiler, {
+      publicPath: webpackDevConfig.output.publicPath,
+      noInfo: true,
+      stats: {
+        colors: true
+      }
+    }))
+    app.use(webpackHotMiddleware(compiler))
+  } else {
+    buildDir = 'dist'
+  }
 }
-let buildDir = isProduction ? 'dist' : 'dev'
 
 app.use(express.static(buildDir))
 app.get('*', function(req, res) {

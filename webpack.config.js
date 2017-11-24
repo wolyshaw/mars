@@ -15,10 +15,10 @@ module.exports = {
     bundle: './src/index.js'
   },
   output: {
-    filename: '[chunkhash:5].[name].js',
+    filename: 'js/[name]-[chunkhash:5].js',
     path: path.resolve('./dist'),
-    publicPath: '/',
-    chunkFilename: '[chunkhash:5].[name].[id].chunk.js'
+    publicPath,
+    chunkFilename: 'js/[name]-[id]-[chunkhash:5]-chunk.js'
   },
   module: {
     rules: [
@@ -27,7 +27,10 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets:  ['react', 'env']
+          presets: ['react', 'env'],
+          plugins: [
+            ['import', { libraryName: 'antd', style: true }]
+          ]
         }
       },
       {
@@ -51,7 +54,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 8192,
-          name: '[name].[ext]'
+          name: 'static/[name].[ext]'
         }
       }
     ]
@@ -77,7 +80,7 @@ module.exports = {
       description: config.site.description
     }),
     new ExtractTextPlugin({
-      filename: 'static/[chunkhash:5].[name].css'
+      filename: 'static/[name]-[chunkhash:5].css'
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {

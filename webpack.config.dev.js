@@ -10,7 +10,8 @@ module.exports = {
   output: {
     filename: 'index.min.js',
     path: path.resolve('./dev'),
-    publicPath: publicPath
+    publicPath: publicPath,
+    chunkFilename: '[name].chunk.js'
   },
   devtool: 'source-map',
   module: {
@@ -20,7 +21,10 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets:  ['react', 'env']
+          presets: ['react', 'env'],
+          plugins: [
+            ['import', { libraryName: 'antd', style: true }]
+          ]
         }
       },
       {
