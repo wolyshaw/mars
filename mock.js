@@ -28,7 +28,53 @@ for (let i = 0; i < 10; i++) {
   })
 }
 
+const userinfo = {
+  niceName: 'mars',
+  password: 'mars',
+  avatar: faker.image.avatar(),
+  bio: faker.lorem.text(),
+  menu: [
+    {
+      title: '控制面板',
+      path: '/',
+      icon: 'appstore-o',
+      disable: false,
+      childrens: [
+
+      ]
+    },
+    {
+      title: '内容管理',
+      path: '/content',
+      icon: 'bars',
+      disable: false,
+      childrens: [
+
+      ]
+    },
+    {
+      title: '用户管理',
+      path: '/user',
+      icon: 'user',
+      disable: false,
+      childrens: [
+
+      ]
+    },
+    {
+      title: '系统管理',
+      path: '/system',
+      icon: 'setting',
+      disable: false,
+      childrens: [
+
+      ]
+    }
+  ]
+}
+
 module.exports = {
   users,
-  posts
+  posts,
+  userinfo
 }

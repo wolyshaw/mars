@@ -8,7 +8,7 @@ export default class Login extends PureComponent {
 
   render() {
     return (
-      <div onClick={ () => openPopup({name: 'test'}) } style={{width: '500px', height: '900px', backgroundColor: '#fff'}}>
+      <div onClick={ () => openPopup({name: 'test'}) } style={{height: '100%', backgroundColor: '#fff'}}>
         login
       </div>
     )

@@ -11,10 +11,15 @@ export default (url, option = {}) => {
     } else {
       initBody = JSON.stringify(
         Object.assign(
-          {ssid: ssid},
           (option.body || {})
         )
       )
+      if(option.method === 'get') {
+        let kv = []
+        Object.entries(JSON.parse(initBody)).map(([k, v]) => kv.push(`${k}=${v}`))
+        url += kv.join('&') ? '?' + kv.join('&') : ''
+        initBody = undefined
+      }
     }
 
     let initOption = {
@@ -23,8 +28,7 @@ export default (url, option = {}) => {
     }
 
     Loading.openLoading()
-
-    return fetch(`${urk}?ssid=${ssid}`, Object.assign({}, initOption, option))
+    return fetch(url, Object.assign({}, initOption, option))
       .then(res => {
         Loading.closeLoading()
         if(res.status === 200) {

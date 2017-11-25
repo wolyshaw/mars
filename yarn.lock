@@ -4180,8 +4180,8 @@ react-dom@^16.1.1:
     prop-types "^15.6.0"
 
 react-float@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/react-float/-/react-float-1.0.4.tgz#cd8cc2cbdd300fc43703e442b829725832b3ab26"
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-float/-/react-float-1.0.5.tgz#504dc03e63e299f22c4ad2b3a050b550fd93a430"
   dependencies:
     react "^16.1.1"
     react-dom "^16.1.1"

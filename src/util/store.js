@@ -8,4 +8,6 @@ const appStore = createStore(
 	applyMiddleware(...middleware)
 )
 
+export const dispatch = appStore.dispatch
+
 export default appStore

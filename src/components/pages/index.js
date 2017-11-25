@@ -5,6 +5,7 @@ import Bundle from '../elements/Bundle'
 import Content from './Content'
 import User from './User'
 import Dashboard from './Dashboard'
+import System from './System'
 // import DashboardLazy from 'bundle-loader?lazy&name=Dashboard!./Dashboard'
 // import ContentLazy from 'bundle-loader?lazy&name=Content!./Content'
 // import UserLazy from 'bundle-loader?lazy&name=User!./User'
@@ -42,6 +43,7 @@ export default props => {
       <Route exact path='/' component={ Dashboard }/>
       <Route exact path='/content' component={ Content }/>
       <Route exact path='/user' component={ User }/>
+      <Route exact path='/system' component={ System }/>
       <Route component={ NotFound }/>
     </Switch>
   )
