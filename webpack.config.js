@@ -75,6 +75,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src', 'static', 'index_default.html'),
+      favicon: path.join(__dirname, 'src', 'static', 'favicon.png'),
       title: config.site.title,
       keywords: config.site.keywords,
       description: config.site.description

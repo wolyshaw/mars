@@ -17,6 +17,15 @@ const compiler = webpack(webpackDevConfig)
 let buildDir = isProduction ? 'dist' : 'dev'
 
 if(!isProduction) {
+  app.use('/api', (req, res, next) => {
+    console.log(req.headers)
+    if(!req.headers['token']) {
+      res.json({
+        code: 100,
+        msg: '请先登录!'
+      })
+    }
+  })
   app.use('/api', jsonServer.bodyParser)
   app.use('/api', middlewares)
   app.use('/api', jsonServer.router(mock))

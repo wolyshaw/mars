@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Avatar, Table } from 'antd'
+import Fetch from 'util/fetch'
 
 const columns = [{
   title: '头像',
@@ -30,9 +31,9 @@ export default class User extends PureComponent {
   }
 
   componentWillMount() {
-    fetch('/api/users')
-      .then(res => res.json())
-      .then(r => this.setState({users: r, loading: false}))
+    Fetch('/api/users')
+      .then(r => this.setState({users: r || [], loading: false}))
+      .catch(err => this.setState({loading: false}))
   }
 
   render() {
