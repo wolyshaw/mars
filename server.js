@@ -18,12 +18,13 @@ let buildDir = isProduction ? 'dist' : 'dev'
 
 if(!isProduction) {
   app.use('/api', (req, res, next) => {
-    console.log(req.headers)
-    if(!req.headers['token']) {
-      res.json({
+    if(!req.headers['x-token']) {
+      res.send({
         code: 100,
         msg: '请先登录!'
       })
+    } else {
+      next()
     }
   })
   app.use('/api', jsonServer.bodyParser)

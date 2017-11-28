@@ -2,10 +2,11 @@ import React, { PureComponent } from 'react'
 import { Layout, Menu, Icon } from 'antd'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
+import { dispatch } from 'util/store'
+import { setUserInfo } from 'actions/user/userinfo'
 import LeftMenuSider from './elements/LeftMenuSider'
 import Container from './elements/Container'
 import Header from './elements/Header'
-import { openPopup } from './popups'
 
 class Application extends PureComponent {
   constructor(props) {
@@ -22,20 +23,16 @@ class Application extends PureComponent {
   }
 
   componentWillMount() {
-    let { userinfo } = this.props
-    if(!userinfo) {
-      openPopup({name: 'login', spanStyle: {width: '100%', height: '100%', margin: 'auto'}})
-    }
+    dispatch(setUserInfo())
   }
 
   render() {
-    console.log(this.props)
     return (
       <Router>
         <Layout>
           <LeftMenuSider collapsed={ this.state.collapsed }/>
           <Layout>
-            <Header toggle={ this.toggle } collapsed={ this.state.collapsed }/>
+            <Header userinfo={ this.props.userinfo } toggle={ this.toggle } collapsed={ this.state.collapsed }/>
             <Container/>
           </Layout>
         </Layout>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Layout } from 'antd'
 import Pages  from '../../pages'
-import { openPopup } from '../../popups'
 
 export default props => {
   return (

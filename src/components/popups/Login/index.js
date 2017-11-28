@@ -26,6 +26,12 @@ class Login extends PureComponent {
     })
   }
 
+  componentDidMount() {
+    if(this.props.mount && typeof this.props.mount === 'function') {
+      this.props.mount()
+    }
+  }
+
   render() {
     const { getFieldDecorator, getFieldsError } = this.props.form
     return (

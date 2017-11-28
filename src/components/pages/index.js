@@ -38,6 +38,7 @@ const NotFound = props => {
 }
 
 export default props => {
+  console.log(props)
   return (
     <Switch>
       <Route exact path='/' component={ Dashboard }/>

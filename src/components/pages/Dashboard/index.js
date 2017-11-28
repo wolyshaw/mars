@@ -27,7 +27,7 @@ export default class Dashboard extends PureComponent {
     super(...props)
     this.state = {
       users: [],
-      loading: true
+      loading: false
     }
   }
 

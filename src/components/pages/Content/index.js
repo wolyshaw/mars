@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Row, Col, Table } from 'antd'
+import { connect } from 'react-redux'
+import Fetch from 'util/fetch'
 import loading from '../../elements/Loading'
 import { openPopup, closePopup } from '../../popups'
 
@@ -30,7 +32,7 @@ const columns = [{
   key: 'updateAt',
 }]
 
-export default class Content extends PureComponent {
+class Content extends PureComponent {
   constructor(props) {
     super(...props)
     this.state = {
@@ -40,12 +42,12 @@ export default class Content extends PureComponent {
   }
 
   componentWillMount() {
-    fetch('/api/posts')
-      .then(res => res.json())
+    Fetch('/api/posts', { method: 'get' })
       .then(r => this.setState({loading: false, posts: r}))
   }
 
   render() {
+    console.log(this.props)
     return (
       <div onClick={() => Loading.openLoading()}>
         <Row>
@@ -57,3 +59,5 @@ export default class Content extends PureComponent {
     )
   }
 }
+
+export default connect(state => state)(Content)

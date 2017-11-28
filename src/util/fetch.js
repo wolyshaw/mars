@@ -1,3 +1,4 @@
+import { message } from 'antd'
 import { openPopup } from '../components/popups'
 import loading from '../components/elements/Loading'
 
@@ -5,7 +6,7 @@ const Loading = new loading()
 
 export default (url, option = {}) => {
 
-    let initBody, token = localStorage.getItem('token')
+    let initBody, token = localStorage.getItem('token') || ''
     if(option.body instanceof FormData) {
       initBody = option.body
     } else {
@@ -22,26 +23,31 @@ export default (url, option = {}) => {
       }
     }
 
-    let headers = new Headers()
-
-    headers.append('Token', localStorage.getItem('token'))
-
     let initOption = {
       method: 'post',
-      body: initBody
+      body: initBody,
+      headers: {
+        'X-token': token
+      }
     }
-console.log(Object.assign({}, initOption, option))
+
     Loading.openLoading()
     return fetch(url, Object.assign({}, initOption, option))
       .then(res => {
         Loading.closeLoading()
         if(res.status === 200) {
-          let json = res.json()
-          if(json.code === 100) {
-            openPopup({name: 'login'})
-          } else {
-            return json
+          return res.json()
+        }
+      })
+      .then(r => {
+        if(r.code === 100) {
+          openPopup({name: 'login', spanStyle: {margin: 0,width: '100%', height: '100%'}})
+          if(option.hint) {
+            message.error('请先登录!')
           }
+          return null
+        } else {
+          return r
         }
       })
       .catch(error => Loading.closeLoading())

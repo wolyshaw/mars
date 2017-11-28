@@ -17,7 +17,7 @@ export const setToken = data => {
 
 export const setUserInfo = () => {
   return dispatch => {
-    return Fetch('/api/userinfo', { method: 'get' })
-      .then(data => dispatch({ type: 'set_userinfo', data }))
+    return Fetch('/api/userinfo', { method: 'get', hint: true })
+      .then(data => dispatch(({ type: 'set_userinfo', data })))
   }
 }
