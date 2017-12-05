@@ -41,7 +41,7 @@ export default (url, option = {}) => {
       })
       .then(r => {
         if(r.code === 100) {
-          openPopup({name: 'login', spanStyle: {margin: 0,width: '100%', height: '100%'}})
+          // openPopup({name: 'login', spanStyle: {margin: 0,width: '100%', height: '100%'}})
           if(option.hint) {
             message.error('请先登录!')
           }
