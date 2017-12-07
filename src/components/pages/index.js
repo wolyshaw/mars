@@ -39,14 +39,12 @@ const NotFound = props => {
   )
 }
 
-const PrivateRoute = connect(state => state)((option) => {
-  let { component: Component } = option
-  option.component = undefined
+const PrivateRoute = connect(({userinfo}) => ({userinfo}))((option) => {
+  let Component = option.Component
   return (
   <Route { ...option } render={props => {
-    console.log(props, 'aass')
     return (
-      option.userinfo ? (
+      option.userinfo !== false ? (
         <Component {...props}/>
       ) : (
         <Redirect to={{
@@ -62,9 +60,10 @@ export default props => {
   return (
     <Switch>
       <Route exact path='/' component={ Dashboard }/>
+      <Route exact path='/dashboard' component={ Dashboard }/>
       <Route exact path='/content' component={ Content }/>
       <Route exact path='/user' component={ User }/>
-      <PrivateRoute exact path='/system' component={ System }/>
+      <PrivateRoute exact path='/system' Component={ System }/>
       <Route exact path='/login' component={ Login }/>
       <Route component={ NotFound }/>
     </Switch>

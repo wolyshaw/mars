@@ -1,8 +1,18 @@
 import { message } from 'antd'
+import { Redirect, withRouter } from 'react-router-dom'
+import { dispatch } from 'util/store'
+import { setUserInfo } from 'actions/user/userinfo'
 import { openPopup } from '../components/popups'
 import loading from '../components/elements/Loading'
 
 const Loading = new loading()
+
+const RedirectToLogin = withRouter(
+  props => <Redirect to={{
+    pathname: '/login',
+    state: { from: props.location }
+  }}/>
+)
 
 export default (url, option = {}) => {
 
@@ -41,10 +51,10 @@ export default (url, option = {}) => {
       })
       .then(r => {
         if(r.code === 100) {
-          // openPopup({name: 'login', spanStyle: {margin: 0,width: '100%', height: '100%'}})
           if(option.hint) {
             message.error('请先登录!')
           }
+          dispatch({type: 'set_userinfo', data: false})
           return null
         } else {
           return r
