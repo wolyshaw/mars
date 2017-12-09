@@ -19,10 +19,8 @@ class Login extends PureComponent {
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log(this.props.form.validateFields)
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        // closePopup('login')
         localStorage.setItem('token', values['nicename'])
         dispatch(setUserInfo())
       }
@@ -30,7 +28,6 @@ class Login extends PureComponent {
   }
 
   render() {
-    console.log(this.props.location.state)
     const { getFieldDecorator, getFieldsError } = this.props.form
     return (
       <div className={ styles.login }>

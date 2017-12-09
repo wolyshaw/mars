@@ -30,7 +30,7 @@ class Application extends PureComponent {
     return (
       <Router>
         <Layout>
-          <LeftMenuSider collapsed={ this.state.collapsed }/>
+          <LeftMenuSider userinfo={ this.props.userinfo } collapsed={ this.state.collapsed }/>
           <Layout>
             <Header userinfo={ this.props.userinfo } toggle={ this.toggle } collapsed={ this.state.collapsed }/>
             <Container/>

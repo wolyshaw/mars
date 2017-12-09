@@ -3,7 +3,6 @@ import { Layout, Menu, Icon } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
 
 const LeftMenuSider = props => {
-  console.log(props.history.location.pathname.match('/user'))
   return (
     <Layout.Sider
       trigger={ null }

@@ -59,13 +59,13 @@ const PrivateRoute = connect(({userinfo}) => ({userinfo}))((option) => {
 export default props => {
   return (
     <Switch>
-      <Route exact path='/' component={ Dashboard }/>
-      <Route exact path='/dashboard' component={ Dashboard }/>
-      <Route exact path='/content' component={ Content }/>
-      <Route exact path='/user' component={ User }/>
+      <PrivateRoute exact path='/' Component={ Dashboard }/>
+      <PrivateRoute exact path='/dashboard' Component={ Dashboard }/>
+      <PrivateRoute exact path='/content' Component={ Content }/>
+      <PrivateRoute exact path='/user' Component={ User }/>
       <PrivateRoute exact path='/system' Component={ System }/>
       <Route exact path='/login' component={ Login }/>
-      <Route component={ NotFound }/>
+      <PrivateRoute Component={ NotFound }/>
     </Switch>
   )
 }

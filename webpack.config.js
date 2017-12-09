@@ -29,7 +29,7 @@ module.exports = {
         options: {
           presets: ['react', 'env'],
           plugins: [
-            ['import', { libraryName: 'antd', style: true }]
+            ['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }]
           ]
         }
       },

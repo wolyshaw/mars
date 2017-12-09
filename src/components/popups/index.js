@@ -6,7 +6,7 @@ import Bundle from '../elements/Bundle'
 // import Test from './Test'
 
 // const LoginLazy = require('bundle-loader?lazy&name=Login!./Login')
-const TestLazy = require('bundle-loader?lazy&name=Test!./Test')
+const TestLazy = require('bundle-loader?lazy&name=Test!./test')
 
 // const Login = props => (
 // 	<Bundle load={ LoginLazy }>
