@@ -4,13 +4,16 @@ import { Icon, Table, Col, Row } from 'antd'
 import { connect } from 'react-redux'
 import Bundle from '../elements/Bundle'
 import Content from './Content'
+import ContentArticle from './Content/Article'
 import User from './User'
 import Dashboard from './Dashboard'
 import System from './System'
 import Login from './Login'
 // import DashboardLazy from 'bundle-loader?lazy&name=Dashboard!./Dashboard'
 // import ContentLazy from 'bundle-loader?lazy&name=Content!./Content'
+// import SystemLazy from 'bundle-loader?lazy&name=System!./System'
 // import UserLazy from 'bundle-loader?lazy&name=User!./User'
+// import LoginLazy from 'bundle-loader?lazy&name=Login!./Login'
 
 // const Dashboard = props => (
 // 	<Bundle load={ DashboardLazy }>
@@ -26,6 +29,18 @@ import Login from './Login'
 
 // const User = props => (
 // 	<Bundle load={ UserLazy }>
+// 		{ (Container) => <Container { ...props }/> }
+// 	</Bundle>
+// )
+
+// const System = props => (
+// 	<Bundle load={ SystemLazy }>
+// 		{ (Container) => <Container { ...props }/> }
+// 	</Bundle>
+// )
+
+// const Login = props => (
+// 	<Bundle load={ LoginLazy }>
 // 		{ (Container) => <Container { ...props }/> }
 // 	</Bundle>
 // )
@@ -62,6 +77,7 @@ export default props => {
       <PrivateRoute exact path='/' Component={ Dashboard }/>
       <PrivateRoute exact path='/dashboard' Component={ Dashboard }/>
       <PrivateRoute exact path='/content' Component={ Content }/>
+      <PrivateRoute exact path='/content/article' Component={ ContentArticle }/>
       <PrivateRoute exact path='/user' Component={ User }/>
       <PrivateRoute exact path='/system' Component={ System }/>
       <Route exact path='/login' component={ Login }/>

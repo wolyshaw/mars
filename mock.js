@@ -38,10 +38,7 @@ const userinfo = {
       title: '控制面板',
       path: '/',
       icon: 'appstore-o',
-      disable: false,
-      childrens: [
-
-      ]
+      disable: false
     },
     {
       title: '内容管理',
@@ -49,7 +46,24 @@ const userinfo = {
       icon: 'bars',
       disable: false,
       childrens: [
-
+        {
+          title: '文章管理',
+          path: '/content/article',
+          icon: 'bars',
+          disable: false
+        },
+        {
+          title: '专题管理',
+          path: '/content/event',
+          icon: 'bars',
+          disable: false
+        },
+        {
+          title: '标签管理',
+          path: '/content/tag',
+          icon: 'bars',
+          disable: false
+        }
       ]
     },
     {
@@ -67,7 +81,12 @@ const userinfo = {
       icon: 'setting',
       disable: false,
       childrens: [
-
+        {
+          title: '系统设置',
+          path: '/system/setting',
+          icon: 'bars',
+          disable: false
+        }
       ]
     }
   ]

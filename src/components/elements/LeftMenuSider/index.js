@@ -2,7 +2,40 @@ import React, { PureComponent } from 'react'
 import { Layout, Menu, Icon } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
 
+const renderMenu = list => {
+	return list.map(item => {
+		if (item.childrens && item.childrens.length) {
+			return (
+				<Menu.SubMenu
+					key={ item.path }
+					disabled={ item.disabled }
+					title={ <span><Icon type={ item.icon }/><span className="nav-text">{ item.title }</span></span> }
+				>
+					{ renderMenu(item.childrens) }
+				</Menu.SubMenu>
+			)
+		} else {
+			return (
+				<Menu.Item key={ item.path } disabled={ item.disabled }>
+					<Link to={ item.path }>{ item.icon ? <Icon type={ item.icon } /> : '' }{ item.title }</Link>
+				</Menu.Item>
+			)
+		}
+	})
+}
+
+const getActiveLink = () => {
+	let open = '/', selected = location.pathname, path = selected.split('/')
+	if (path.length > 2) {
+		path.pop()
+		open = path.join('/')
+	}
+	return { open, selected }
+}
+
 const LeftMenuSider = props => {
+  let { userinfo } = props
+  let path = getActiveLink()
   return (
     <Layout.Sider
       trigger={ null }
@@ -11,31 +44,8 @@ const LeftMenuSider = props => {
       style={{background: '#fff'}}
     >
       <div style={{height: '60px', width: '100%'}}/>
-      <Menu mode="inline" defaultSelectedKeys={['/']}>
-        <Menu.Item key="/">
-          <Link to="/">
-            <Icon type="user" />
-            <span className="nav-text">控制面板</span>
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="/content">
-          <Link to="/content">
-            <Icon type="video-camera" />
-            <span className="nav-text">内容管理</span>
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="/user">
-          <Link to="/user">
-            <Icon type="user" />
-            <span className="nav-text">用户管理</span>
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="/system">
-          <Link to="/system">
-            <Icon type="bar-chart" />
-            <span className="nav-text">系统管理</span>
-          </Link>
-        </Menu.Item>
+      <Menu mode="inline" defaultOpenKeys={[path.open]} defaultSelectedKeys={[path.selected]}>
+        { userinfo ? renderMenu(userinfo.menu) : null }
       </Menu>
     </Layout.Sider>
   )
