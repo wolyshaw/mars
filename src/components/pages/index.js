@@ -55,6 +55,7 @@ const NotFound = props => {
 }
 
 const PrivateRoute = connect(({userinfo}) => ({userinfo}))((option) => {
+  console.log(option.userinfo)
   let Component = option.Component
   return (
   <Route { ...option } render={props => {

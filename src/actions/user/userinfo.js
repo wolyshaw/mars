@@ -21,3 +21,7 @@ export const setUserInfo = () => {
       .then(data => dispatch(({ type: 'set_userinfo', data })))
   }
 }
+
+export const clearUserInfo = () => {
+	return ({ type: 'clear_userinfo', data: false })
+}
